@@ -1,0 +1,31 @@
+pipeline {
+    agent any
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('Compile') {
+            steps {
+                sh 'mvn clean compile' // O el comando de compilación de tu proyecto
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'mvn test' // O el comando para ejecutar tests
+            }
+        }
+    }
+    post {
+        always {
+            //Acciones que se ejecutan siempre, independientemente del resultado
+        }
+        success {
+            echo 'Build successful!'
+        }
+        failure {
+            echo 'Build failed!'
+        }
+    }
+}
